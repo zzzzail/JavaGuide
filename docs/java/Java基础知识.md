@@ -1,6 +1,6 @@
 点击关注[公众号](#公众号)及时获取笔主最新更新文章，并可免费领取本文档配套的《Java 面试突击》以及 Java 工程师必备学习资源。
 
-<!-- TOC -->
+<!-- MarkdownTOC -->
 
 - [1. Java 基本功](#1-java-基本功)
     - [1.1. Java 入门（基础概念与常识）](#11-java-入门基础概念与常识)
@@ -85,7 +85,7 @@
 - [4. 参考](#4-参考)
 - [5. 公众号](#5-公众号)
 
-<!-- /TOC -->
+<!-- /MarkdownTOC -->
 
 ## 1. Java 基本功
 
@@ -95,10 +95,10 @@
 
 1. 简单易学；
 2. 面向对象（封装，继承，多态）；
-3. 平台无关性（ Java 虚拟机实现平台无关性）；
+3. 平台无关性（Java 虚拟机实现平台无关性）；
 4. 可靠性；
 5. 安全性；
-6. 支持多线程（ C++ 语言没有内置的多线程机制，因此必须调用操作系统的多线程功能来进行多线程程序设计，而 Java 语言却提供了多线程支持）；
+6. 支持多线程（C++ 语言没有内置的多线程机制，因此必须调用操作系统的多线程功能来进行多线程程序设计，而 Java 语言却提供了多线程支持）；
 7. 支持网络编程并且很方便（ Java 语言诞生本身就是为简化网络编程设计的，因此 Java 语言不仅支持网络编程而且很方便）；
 8. 编译与解释并存；
 
@@ -106,7 +106,7 @@
 
 #### 1.1.2. 关于 JVM JDK 和 JRE 最详细通俗的解答
 
-##### 1.1.2.1. JVM
+##### 1.1.2.1. JVM（Java Virtual Machine）
 
 Java 虚拟机（JVM）是运行 Java 字节码的虚拟机。JVM 有针对不同系统的特定实现（Windows，Linux，macOS），目的是使用相同的字节码，它们都会给出相同的结果。
 
@@ -1345,7 +1345,6 @@ Java Io 流共涉及 40 多个类，这些类看上去很杂乱，但实际上�
 ## 4. 参考
 
 - https://stackoverflow.com/questions/1906445/what-is-the-difference-between-jdk-and-jre
-- https://www.educba.com/oracle-vs-openjdk/
 - https://stackoverflow.com/questions/22358071/differences-between-oracle-jdk-and-openjdk?answertab=active#tab-top
 
 ## 5. 公众号
