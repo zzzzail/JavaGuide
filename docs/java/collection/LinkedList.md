@@ -1,4 +1,3 @@
-
 <!-- MarkdownTOC -->
 
 - [简介](#简介)
@@ -18,13 +17,15 @@
 <font color="red">LinkedList</font>是一个实现了<font color="red">List接口</font>和<font color="red">Deque接口</font>的<font color="red">双端链表</font>。 
 LinkedList底层的链表结构使它<font color="red">支持高效的插入和删除操作</font>，另外它实现了Deque接口，使得LinkedList类也具有队列的特性;
 LinkedList<font color="red">不是线程安全的</font>，如果想使LinkedList变成线程安全的，可以调用静态类<font color="red">Collections类</font>中的<font color="red">synchronizedList</font>方法： 
+
 ```java
 List list=Collections.synchronizedList(new LinkedList(...));
 ```
-## <font face="楷体" id="2">内部结构分析</font>
+## 内部结构分析
 **如下图所示：**
 ![LinkedList内部结构](https://user-gold-cdn.xitu.io/2018/3/19/1623e363fe0450b0?w=600&h=481&f=jpeg&s=18502)
 看完了图之后，我们再看LinkedList类中的一个<font color="red">**内部私有类Node**</font>就很好理解了：
+
 ```java
 private static class Node<E> {
         E item;//节点值
@@ -40,8 +41,8 @@ private static class Node<E> {
 ```
 这个类就代表双端链表的节点Node。这个类有三个属性，分别是前驱节点，本节点的值，后继结点。
 
-## <font face="楷体" id="3">LinkedList源码分析</font>
-### <font face="楷体" id="3.1">构造方法</font>
+## LinkedList源码分析
+### 构造方法
 **空构造方法：**
 ```java
     public LinkedList() {
@@ -54,8 +55,9 @@ private static class Node<E> {
         addAll(c);
     }
 ```
-### <font face="楷体" id="3.2">add方法</font>
+### add方法
 **add(E e)** 方法：将元素添加到链表尾部
+
 ```java
 public boolean add(E e) {
         linkLast(e);//这里就只调用了这一个方法
@@ -80,6 +82,7 @@ public boolean add(E e) {
     }
 ```
 **add(int index,E e)**：在指定位置添加元素
+
 ```java
 public void add(int index, E element) {
         checkPositionIndex(index); //检查索引是否处于[0-size]之间
@@ -159,6 +162,7 @@ public boolean addAll(int index, Collection<? extends E> c) {
 4. 遍历数据，将数据插入到指定位置
 
 **addFirst(E e)：** 将元素添加到链表头部
+
 ```java
  public void addFirst(E e) {
         linkFirst(e);
@@ -180,13 +184,15 @@ private void linkFirst(E e) {
     }
 ```
 **addLast(E e)：** 将元素添加到链表尾部，与 **add(E e)** 方法一样
+
 ```java
 public void addLast(E e) {
         linkLast(e);
     }
 ```
-### <font face="楷体" id="3.3">根据位置取数据的方法</font>
+### 根据位置取数据的方法
 **get(int index)：** 根据指定索引返回数据
+
 ```java
 public E get(int index) {
         //检查index范围是否在size之内
@@ -196,6 +202,7 @@ public E get(int index) {
     }
 ```
 **获取头节点（index=0）数据方法:**
+
 ```java
 public E getFirst() {
         final Node<E> f = first;
@@ -281,14 +288,14 @@ public int lastIndexOf(Object o) {
         return -1;
     }
 ```
-### <font face="楷体" id="3.5">检查链表是否包含某对象的方法：</font>
+### 检查链表是否包含某对象的方法：
 **contains(Object o)：** 检查对象o是否存在于链表中
 ```java
  public boolean contains(Object o) {
         return indexOf(o) != -1;
     }
 ```
-### <font face="楷体" id="3.6">删除方法</font>
+### 删除方法
 **remove()** ,**removeFirst(),pop():** 删除头节点
 ```
 public E pop() {
@@ -320,6 +327,7 @@ public E pollLast() {
 **区别：** removeLast()在链表为空时将抛出NoSuchElementException，而pollLast()方法返回null。
 
 **remove(Object o):** 删除指定元素
+
 ```java
 public boolean remove(Object o) {
         //如果删除对象为null
@@ -388,7 +396,7 @@ public E remove(int index) {
         return unlink(node(index));
     }
 ```
-## <font face="楷体" id="4">LinkedList类常用方法测试</font>
+## LinkedList类常用方法测试
 
 ```java
 package list;

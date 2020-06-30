@@ -111,10 +111,10 @@
 我们来仔细分析一下：
 
 - 当我们要 add 进第1个元素到 ArrayList 时，elementData.length 为0 （因为还是一个空的 list），因为执行了 `ensureCapacityInternal()` 方法 ，所以 minCapacity 此时为10。此时，`minCapacity - elementData.length > 0 `成立，所以会进入 `grow(minCapacity)` 方法。
-- 当add第2个元素时，minCapacity 为2，此时e lementData.length(容量)在添加第一个元素后扩容成 10 了。此时，`minCapacity - elementData.length > 0 ` 不成立，所以不会进入 （执行）`grow(minCapacity)` 方法。
+- 当add第2个元素时，minCapacity 为2，此时elementData.length(容量)在添加第一个元素后扩容成 10 了。此时，`minCapacity - elementData.length > 0 ` 不成立，所以不会进入 （执行）`grow(minCapacity)` 方法。
 - 添加第3、4···到第10个元素时，依然不会执行grow方法，数组容量都为10。
 
-直到添加第11个元素，minCapacity(为11)比elementData.length（为10）要大。进入grow方法进行扩容。
+* 直到添加第11个元素，minCapacity(为11)比elementData.length（为10）要大。进入grow方法进行扩容。
 
 ### 4. `grow()` 方法 
 
@@ -130,7 +130,7 @@
     private void grow(int minCapacity) {
         // oldCapacity为旧容量，newCapacity为新容量
         int oldCapacity = elementData.length;
-        //将oldCapacity 右移一位，其效果相当于oldCapacity /2，
+        //将oldCapacity 右移一位，其效果相当于oldCapacity / 2，
         //我们知道位运算的速度远远快于整除运算，整句运算式的结果就是将新容量更新为旧容量的1.5倍，
         int newCapacity = oldCapacity + (oldCapacity >> 1);
         //然后检查新容量是否大于最小需要容量，若还是小于最小需要容量，那么就把最小需要容量当作数组的新容量，
@@ -147,7 +147,7 @@
 
 **int newCapacity = oldCapacity + (oldCapacity >> 1),所以 ArrayList 每次扩容之后容量都会变为原来的 1.5 倍左右（oldCapacity为偶数就是1.5倍，否则是1.5倍左右）！**  奇偶不同，比如 ：10+10/2 = 15, 33+33/2=49。如果是奇数的话会丢掉小数.
 
->   ">>"（移位运算符）：>>1 右移一位相当于除2，右移n位相当于除以 2 的 n 次方。这里 oldCapacity 明显右移了1位所以相当于oldCapacity /2。对于大数据的2进制运算,位移运算符比那些普通运算符的运算要快很多,因为程序仅仅移动一下而已,不去计算,这样提高了效率,节省了资源 　
+>   ">>"（移位运算符）：>>1 右移一位相当于除2，右移n位相当于除以 2 的 n 次方。这里 oldCapacity 明显右移了1位所以相当于oldCapacity / 2。对于大数据的2进制运算，位移运算符比那些普通运算符的运算要快很多，因为程序仅仅移动一下而已，不去计算，这样提高了效率，节省了资源 　
 
 **我们再来通过例子探究一下`grow()` 方法 ：**
 
@@ -193,8 +193,8 @@
 ```java
     /**
      * 在此列表中的指定位置插入指定的元素。 
-     *先调用 rangeCheckForAdd 对index进行界限检查；然后调用 ensureCapacityInternal 方法保证capacity足够大；
-     *再将从index开始之后的所有成员后移一个位置；将element插入index位置；最后size加1。
+     * 先调用 rangeCheckForAdd 对index进行界限检查；然后调用 ensureCapacityInternal 方法保证capacity足够大；
+     * 再将从index开始之后的所有成员后移一个位置；将element插入index位置；最后size加1。
      */
     public void add(int index, E element) {
         rangeCheckForAdd(index);
@@ -220,6 +220,7 @@ public class ArraycopyTest {
 		a[1] = 1;
 		a[2] = 2;
 		a[3] = 3;
+    // 
 		System.arraycopy(a, 2, a, 3, 3);
 		a[2]=99;
 		for (int i = 0; i < a.length; i++) {
@@ -338,6 +339,7 @@ public class EnsureCapacityTest {
         final int N = 10000000;
         list = new ArrayList<Object>();
         long startTime1 = System.currentTimeMillis();
+        // 提前调用，提前申请内存空间，提高性能
         list.ensureCapacity(N);
         for (int i = 0; i < N; i++) {
             list.add(i);
@@ -351,7 +353,6 @@ public class EnsureCapacityTest {
 运行结果：
 
 ```
-
 使用ensureCapacity方法前：1773
 ```
 

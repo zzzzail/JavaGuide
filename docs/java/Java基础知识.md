@@ -269,7 +269,7 @@ return 用于跳出所在方法，结束该方法的运行。return 一般有两
 
 Java 泛型（generics）是 JDK 5 中引入的一个新特性，泛型提供了编译时类型安全检测机制，该机制允许程序员在编译时检测到非法的类型。泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。
 
-**Java的泛型是伪泛型，这是因为Java在编译期间，所有的泛型信息都会被擦掉，这也就是通常所说类型擦除 。** 更多关于类型擦除的问题，可以查看这篇文章：[《Java泛型类型擦除以及类型擦除带来的问题》](https://www.cnblogs.com/wuqinglong/p/9456193.html) 。
+**Java的泛型是伪泛型，这是因为Java在编译期间，所有的泛型信息都会被擦掉，这也就是通常所说类型擦除 。** 更多关于类型擦除的问题，可以查看这篇文章：[《Java泛型类型擦除以及类型擦除带来的问题》](Java泛型类型擦除以及类型擦除带来的问题.md) 。
 
 ```java
 List<Integer> list = new ArrayList<>();
@@ -345,9 +345,8 @@ class GeneratorImpl<T> implements Generator<String>{
 **3.泛型方法** ：
 
 ```java
-   public static < E > void printArray( E[] inputArray )
-   {         
-         for ( E element : inputArray ){        
+   public static <E> void printArray(E[] inputArray) {
+         for ( E element : inputArray ){
             System.out.printf( "%s ", element );
          }
          System.out.println();
@@ -357,7 +356,7 @@ class GeneratorImpl<T> implements Generator<String>{
 使用：
 
 ```java
-// 创建不同类型数组： Integer, Double 和 Character
+//创建不同类型数组： Integer, Double 和 Character
 Integer[] intArray = { 1, 2, 3 };
 String[] stringArray = { "Hello", "World" };
 printArray( intArray  ); 
@@ -371,7 +370,7 @@ printArray( stringArray  );
 - K V (key value) 分别代表java键值中的Key Value
 - E (element) 代表Element
 
-更多关于Java 泛型中的通配符可以查看这篇文章：[《聊一聊-JAVA 泛型中的通配符 T，E，K，V，？》](https://juejin.im/post/5d5789d26fb9a06ad0056bd9)
+更多关于Java 泛型中的通配符可以查看这篇文章：[《聊一聊-JAVA 泛型中的通配符 T，E，K，V，？》](聊一聊-JAVA 泛型中的通配符 T，E，K，V，？)
 
 #### 1.2.8. ==和equals的区别
 
@@ -484,7 +483,7 @@ public native int hashCode();
 
 
 
-更多关于 `hashcode()` 和 `equals()` 的内容可以查看：[Java hashCode() 和 equals()的若干问题解答](https://www.cnblogs.com/skywang12345/p/3324958.html)
+更多关于 `hashcode()` 和 `equals()` 的内容可以查看：[Java hashCode() 和 equals()的若干问题解答](Java hashCode() 和 equals()的若干问题解答.md)
 
 ### 1.3. 基本数据类型
 
@@ -563,8 +562,8 @@ private static class CharacterCache {
 
 ```java
 /**
-*此方法将始终缓存-128 到 127（包括端点）范围内的值，并可以缓存此范围之外的其他值。
-*/
+ * 此方法将始终缓存-128 到 127（包括端点）范围内的值，并可以缓存此范围之外的其他值。
+ */
     public static Integer valueOf(int i) {
         if (i >= IntegerCache.low && i <= IntegerCache.high)
             return IntegerCache.cache[i + (-IntegerCache.low)];
