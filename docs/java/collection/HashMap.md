@@ -546,5 +546,4 @@ public class HashMapDemo {
 
 ## 参考资料
 
-* [HashMap实现原理及源码分析](./HashMap实现原理及源码分析.md)
 * [Java 8系列之重新认识HashMap](./Java 8系列之重新认识HashMap.md)
