@@ -431,7 +431,7 @@ public interface Callable<V> {
 
 **方式一：通过构造方法实现**
 ![ThreadPoolExecutor构造方法](https://my-blog-to-use.oss-cn-beijing.aliyuncs.com/2019-6/ThreadPoolExecutor构造方法.png)
-**方式二：通过Executor 框架的工具类Executors来实现**
+**方式二：通过Executor框架的工具类Executors来实现**
 我们可以创建三种类型的ThreadPoolExecutor：
 
 - **FixedThreadPool** ： 该方法返回一个固定线程数量的线程池。该线程池中的线程数量始终不变。当有一个新的任务提交时，线程池中若有空闲线程，则立即执行。若没有，则新的任务会被暂存在一个任务队列中，待有线程空闲时，便处理在任务队列中的任务。
@@ -448,6 +448,29 @@ public interface Callable<V> {
 ```java
     /**
      * 用给定的初始参数创建一个新的ThreadPoolExecutor。
+     * @param corePoolSize the number of threads to keep in the pool, even
+     *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
+     * @param maximumPoolSize the maximum number of threads to allow in the
+     *        pool
+     * @param keepAliveTime when the number of threads is greater than
+     *        the core, this is the maximum time that excess idle threads
+     *        will wait for new tasks before terminating.
+     * @param unit the time unit for the {@code keepAliveTime} argument
+              时间单位
+     * @param workQueue the queue to use for holding tasks before they are
+     *        executed.  This queue will hold only the {@code Runnable}
+     *        tasks submitted by the {@code execute} method.
+     * @param threadFactory the factory to use when the executor
+     *        creates a new thread
+     * @param handler the handler to use when execution is blocked
+     *        because the thread bounds and queue capacities are reached
+     * @throws IllegalArgumentException if one of the following holds:<br>
+     *         {@code corePoolSize < 0}<br>
+     *         {@code keepAliveTime < 0}<br>
+     *         {@code maximumPoolSize <= 0}<br>
+     *         {@code maximumPoolSize < corePoolSize}
+     * @throws NullPointerException if {@code workQueue}
+     *         or {@code threadFactory} or {@code handler} is null
      */
     public ThreadPoolExecutor(int corePoolSize,
                               int maximumPoolSize,
@@ -478,16 +501,16 @@ public interface Callable<V> {
 
 **`ThreadPoolExecutor` 3 个最重要的参数：**
 
-- **`corePoolSize` :** 核心线程数线程数定义了最小可以同时运行的线程数量。
-- **`maximumPoolSize` :** 当队列中存放的任务达到队列容量的时候，当前可以同时运行的线程数量变为最大线程数。
-- **`workQueue`:** 当新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中。
+- **`corePoolSize` :** 核心线程数。线程池中线程的数量始终保持在这个数量以及这个数量之上。
+- **`maximumPoolSize` :** 最大线程数。当队列中存放的任务达到队列容量的时候，当前可以同时运行的线程数量。
+- **`workQueue`:** 工作队列。当新任务来的时候会先判断当前运行的线程数量是否达到核心线程数，如果达到的话，新任务就会被存放在队列中。
 
 `ThreadPoolExecutor`其他常见参数:
 
-1. **`keepAliveTime`**:当线程池中的线程数量大于 `corePoolSize` 的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了 `keepAliveTime`才会被回收销毁；
-2. **`unit`** : `keepAliveTime` 参数的时间单位。
-3. **`threadFactory`** :executor 创建新线程的时候会用到。
-4. **`handler`** :饱和策略。关于饱和策略下面单独介绍一下。
+1. **`keepAliveTime`**：当线程池中的线程数量大于 `corePoolSize` 的时候，如果这时没有新的任务提交，核心线程外的线程不会立即销毁，而是会等待，直到等待的时间超过了 `keepAliveTime`才会被回收销毁；
+2. **`unit`**：`keepAliveTime` 参数的时间单位。
+3. **`threadFactory`**：线程工厂。当 executor 需要创建新线程的时候，使用该工厂创建。
+4. **`handler`**：饱和策略。关于饱和策略下面单独介绍一下。
 
 #### 4.5.2 `ThreadPoolExecutor` 饱和策略
 
@@ -789,7 +812,7 @@ AtomicInteger 类主要利用 CAS (compare and swap) + volatile 和 native 方�
 
 CAS的原理是拿期望的值和原本的一个值作比较，如果相同则更新成新的值。UnSafe 类的 objectFieldOffset() 方法是一个本地方法，这个方法是用来拿到“原来的值”的内存地址，返回值是 valueOffset。另外 value 是一个volatile变量，在内存中可见，因此 JVM 可以保证任何时刻任何线程总能拿到该变量的最新值。
 
-关于 Atomic 原子类这部分更多内容可以查看我的这篇文章：并发编程面试必备：[JUC 中的 Atomic 原子类总结](https://mp.weixin.qq.com/s/joa-yOiTrYF67bElj8xqvg)
+关于 Atomic 原子类这部分更多内容可以查看我的这篇文章：并发编程面试必备：[JUC 中的 Atomic 原子类总结](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247484832&idx=1&sn=f902febd050eac59d67fc0804d7e1ad5&source=41#wechat_redirect)
 
 ## 6. AQS
 
