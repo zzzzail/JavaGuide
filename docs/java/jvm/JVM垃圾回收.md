@@ -79,15 +79,15 @@ Java 堆是垃圾收集器管理的主要区域，因此也被称作**GC 堆（G
 > ```c++
 > uint ageTable::compute_tenuring_threshold(size_t survivor_capacity) {
 > 	//survivor_capacity是survivor空间的大小
-> size_t desired_survivor_size = (size_t)((((double) survivor_capacity)*TargetSurvivorRatio)/100);
-> size_t total = 0;
-> uint age = 1;
-> while (age < table_size) {
->  total += sizes[age];//sizes数组是每个年龄段对象大小
->  if (total > desired_survivor_size) break;
->  age++;
-> }
-> uint result = age < MaxTenuringThreshold ? age : MaxTenuringThreshold;
+>   size_t desired_survivor_size = (size_t)((((double) survivor_capacity)*TargetSurvivorRatio)/100);
+>   size_t total = 0;
+>   uint age = 1;
+>   while (age < table_size) {
+>    total += sizes[age];//sizes数组是每个年龄段对象大小
+>    if (total > desired_survivor_size) break;
+>    age++;
+>   }
+>   uint result = age < MaxTenuringThreshold ? age : MaxTenuringThreshold;
 > 	...
 > }
 > 
@@ -116,7 +116,6 @@ Java 堆是垃圾收集器管理的主要区域，因此也被称作**GC 堆（G
 
 ```java
 public class GCTest {
-
 	public static void main(String[] args) {
 		byte[] allocation1, allocation2;
 		allocation1 = new byte[30900*1024];
