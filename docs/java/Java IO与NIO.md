@@ -99,7 +99,7 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
 
 他们两个的功能相同，但是属于不同的分类。字节流和字符流。他们都有println()方法。
 
-#### 11. 在文件拷贝的时候，那一种流可用提升更多的性能？
+#### 11. 在文件拷贝的时候，哪一种流可用提升更多的性能？
 
 在字节流的时候，使用BufferedInputStream和BufferedOutputStream。
 在字符流的时候，使用BufferedReader和BufferedWriter
@@ -110,7 +110,7 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
 
 #### 13. 说说File类
 
-它不属于 IO流，也不是用于文件操作的，它主要用于知道一个文件的属性，读写权限，大小等信息。注意：Java7中文件IO发生了很大的变化，专门引入了很多新的类来取代原来的基于java.io.File的文件IO操作方式。详情阅读下面的文章：[Java NIO之拥抱Path和Files](http://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&mid=2247483976&idx=1&sn=2296c05fc1b840a64679e2ad7794c96d&chksm=fd985429caefdd3f48e2ee6fdd7b0f6fc419df90b3de46832b484d6d1ca4e74e7837689c8146&scene=21#wechat_redirect)
+它不属于 IO流，也不是用于文件操作的，它主要用于知道一个文件的属性，读写权限，大小等信息。注意：Java7中文件IO发生了很大的变化，专门引入了很多新的类来取代原来的基于java.io.File的文件IO操作方式。详情阅读下面的文章：[Java NIO之拥抱Path和Files](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247484947&idx=1&sn=5b3075b83724f5d510e4220488cc1d16&source=41#wechat_redirect)
 
 #### 14. 说说RandomAccessFile？
 
@@ -120,7 +120,7 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
 ## NIO与AIO学习总结
 
 
-### [一 Java NIO 概览](https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&mid=2247483956&idx=1&sn=57692bc5b7c2c6dfb812489baadc29c9&chksm=fd985455caefdd4331d828d8e89b22f19b304aa87d6da73c5d8c66fcef16e4c0b448b1a6f791#rd)
+### [一 Java NIO 概览](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247484951&idx=1&sn=0cef67df4b883b198da467c927533316&source=41#wechat_redirect)
 
 1.  **NIO简介**:
 
@@ -131,17 +131,19 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
     -   2)IO流是阻塞的，NIO流是不阻塞的;
     -   3)NIO有选择器，而IO没有。
 3.  **读数据和写数据方式:**
-    - 从通道进行数据读取 ：创建一个缓冲区，然后请求通道读取数据。
-
-    - 从通道进行数据写入 ：创建一个缓冲区，填充数据，并要求通道写入数据。
-
+    
+- 从通道进行数据读取 ：创建一个缓冲区，然后请求通道读取数据。
+    
+- 从通道进行数据写入 ：创建一个缓冲区，填充数据，并要求通道写入数据。
+    
 4.  **NIO核心组件简单介绍**
+    
     - **Channels**
     - **Buffers**
     - **Selectors**
 
 
-### [二 Java NIO 之 Buffer(缓冲区)](https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&mid=2247483961&idx=1&sn=f67bef4c279e78043ff649b6b03fdcbc&chksm=fd985458caefdd4e3317ccbdb2d0a5a70a5024d3255eebf38183919ed9c25ade536017c0a6ba#rd)
+### [二 Java NIO 之 Buffer(缓冲区)](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247484950&idx=1&sn=796cd8c9141268e3683bf6b22736858e&source=41#wechat_redirect)
 
 1. **Buffer(缓冲区)介绍:**
    - Java NIO Buffers用于和NIO Channel交互。 我们从Channel中读取数据到buffers里，从Buffer把数据写入到Channels；
@@ -153,6 +155,7 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
     - Buffer rewind()
     - Buffer position(int newPosition)
 3. **Buffer的使用方式/方法介绍:**
+    
     - 分配缓冲区（Allocating a Buffer）:
     ```java
     ByteBuffer buf = ByteBuffer.allocate(28);//以ByteBuffer为例子
@@ -168,14 +171,14 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
       2.通过put写数据：
       ```java
       buf.put(127);
-      ```
-
+  ```
+    
 4. **Buffer常用方法测试**
    
     说实话，NIO编程真的难，通过后面这个测试例子，你可能才能勉强理解前面说的Buffer方法的作用。
 
 
-### [三 Java NIO 之 Channel（通道）](https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&mid=2247483966&idx=1&sn=d5cf18c69f5f9ec2aff149270422731f&chksm=fd98545fcaefdd49296e2c78000ce5da277435b90ba3c03b92b7cf54c6ccc71d61d13efbce63#rd)
+### [三 Java NIO 之 Channel（通道）](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247484949&idx=1&sn=a8a9c3fcf736efa88917e8c32db35758&source=41#wechat_redirect)
 
 
 1.  **Channel（通道）介绍**
@@ -183,7 +186,7 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
      - NIO Channel通道和流的区别：
 2. **FileChannel的使用**
 3. **SocketChannel和ServerSocketChannel的使用**
-4.  **️DatagramChannel的使用**
+4.  **DatagramChannel的使用**
 5.  **Scatter / Gather**
     - Scatter: 从一个Channel读取的信息分散到N个缓冲区中(Buufer).
     - Gather: 将N个Buffer里面内容按照顺序发送到一个Channel.
@@ -193,7 +196,7 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
    - transferTo() :transferTo方法把FileChannel数据传输到另一个channel
    
 
-### [四 Java NIO之Selector（选择器）](https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&mid=2247483970&idx=1&sn=d5e2b133313b1d0f32872d54fbdf0aa7&chksm=fd985423caefdd354b587e57ce6cf5f5a7bec48b9ab7554f39a8d13af47660cae793956e0f46#rd)
+### [四 Java NIO之Selector（选择器）](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247484948&idx=1&sn=c077462dfeca9abacc43c22304c804cf&source=41#wechat_redirect)
 
 
 1. **Selector（选择器）介绍**
@@ -225,7 +228,7 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
 
 
 
-### [五 Java NIO之拥抱Path和Files](https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&mid=2247483976&idx=1&sn=2296c05fc1b840a64679e2ad7794c96d&chksm=fd985429caefdd3f48e2ee6fdd7b0f6fc419df90b3de46832b484d6d1ca4e74e7837689c8146&token=537240785&lang=zh_CN#rd)
+### [五 Java NIO之拥抱Path和Files](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247484947&idx=1&sn=5b3075b83724f5d510e4220488cc1d16&source=41#wechat_redirect)
 
 **一 文件I/O基石：Path：**
 - 创建一个Path
@@ -234,12 +237,13 @@ Filter Stream是一种IO流主要作用是用来对存在的流增加一些额�
 - 移除Path中的冗余项
 
 **二 拥抱Files类：**
+
 -  Files.exists() 检测文件路径是否存在
 -  Files.createFile() 创建文件
 -  Files.createDirectories()和Files.createDirectory()创建文件夹
 -  Files.delete()方法 可以删除一个文件或目录
--  Files.copy()方法可以吧一个文件从一个地址复制到另一个位置
--   获取文件属性
+-  Files.copy()方法可以把一个文件从一个地址复制到另一个位置
+-   Files.getAttribute()获取文件属性
 -   遍历一个文件夹
 -   Files.walkFileTree()遍历整个目录
 
@@ -259,10 +263,8 @@ Java7中新增了AsynchronousFileChannel作为nio的一部分。AsynchronousFile
 
 ## 推荐阅读
 
-### [在 Java 7 中体会 NIO.2 异步执行的快乐](https://www.ibm.com/developerworks/cn/java/j-lo-nio2/index.html)
+* [在 Java 7 中体会 NIO.2 异步执行的快乐](https://www.ibm.com/developerworks/cn/java/j-lo-nio2/index.html)
 
-### [Java AIO总结与示例](https://blog.csdn.net/x_i_y_u_e/article/details/52223406)
+* [Java AIO总结与示例](https://blog.csdn.net/x_i_y_u_e/article/details/52223406)
+
 AIO是异步IO的缩写，虽然NIO在网络操作中，提供了非阻塞的方法，但是NIO的IO行为还是同步的。对于NIO来说，我们的业务线程是在IO操作准备好时，得到通知，接着就由这个线程自行进行IO操作，IO操作本身是同步的。
-
-
-**欢迎关注我的微信公众号:"Java面试通关手册"（一个有温度的微信公众号，期待与你共同进步~~~坚持原创，分享美文，分享各种Java学习资源）：**
