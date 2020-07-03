@@ -41,13 +41,81 @@
    - 按照流的角色划分为节点流和处理流。
 2. **流的原理浅析:**
 
-   java Io流共涉及40多个类，这些类看上去很杂乱，但实际上很有规则，而且彼此之间存在非常紧密的联系， Java Io流的40多个类都是从如下4个抽象类基类中派生出来的。
+   java IO流共涉及40多个类，这些类看上去很杂乱，但实际上很有规则，而且彼此之间存在非常紧密的联系， Java IO流的40多个类都是从如下4个抽象类基类中派生出来的。
 
    - **InputStream/Reader**: 所有的输入流的基类，前者是字节输入流，后者是字符输入流。
    - **OutputStream/Writer**: 所有输出流的基类，前者是字节输出流，后者是字符输出流。
 3. **常用的io流的用法** 
 
-### [三　Java IO面试题](https://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&mid=2247483985&idx=1&sn=38531c2cee7b87f125df7aef41637014&chksm=fd985430caefdd26b0506aa84fc26251877eccba24fac73169a4d6bd1eb5e3fbdf3c3b940261#rd)
+### 三　Java IO面试题
+
+#### 1. 什么是IO流？
+
+它是一种数据的流从源头流到目的地。比如文件拷贝，输入流和输出流都包括了。输入流从文件中读取数据存储到进程(process)中，输出流从进程中读取数据然后写入到目标文件。
+
+#### 2. 字节流和字符流的区别。
+
+字节流在JDK1.0中就被引进了，用于操作包含ASCII字符的文件。JAVA也支持其他的字符如Unicode，为了读取包含Unicode字符的文件，JAVA语言设计者在JDK1.1中引入了字符流。ASCII作为Unicode的子集，对于英语字符的文件，可以可以使用字节流也可以使用字符流。
+
+#### 3. Java中流类的超类主要由那些？
+
+* java.io.InputStream
+* java.io.OutputStream
+* java.io.Reader
+* java.io.Writer
+
+#### 4. FileInputStream和FileOutputStream是什么？
+
+这是在拷贝文件操作的时候，经常用到的两个类。在处理小文件的时候，它们性能表现还不错，在大文件的时候，最好使用BufferedInputStream (或 BufferedReader) 和 BufferedOutputStream (或 BufferedWriter)
+
+#### 5. 字节流和字符流，你更喜欢使用拿一个？
+
+个人来说，更喜欢使用字符流，因为他们更新一些。许多在字符流中存在的特性，字节流中不存在。比如使用BufferedReader而不是BufferedInputStreams或DataInputStream，使用newLine()方法来读取下一行，但是在字节流中我们需要做额外的操作。
+
+#### 6. `System.out.println()`是什么？
+
+`println`是PrintStream的一个方法。`out`是一个静态PrintStream类型的成员变量，`System`是一个java.lang包中的类，用于和底层的操作系统进行交互。
+
+#### 7. 什么是Filter流？
+
+Filter Stream是一种IO流主要作用是用来对存在的流增加一些额外的功能，像给目标文件增加源文件中不存在的行数，或者增加拷贝的性能。
+
+#### 8. 有哪些可用的Filter流？
+
+在java.io包中主要由4个可用的filter Stream。两个字节filter stream，两个字符filter stream. 分别是FilterInputStream, FilterOutputStream, FilterReader and FilterWriter.这些类是抽象类，不能被实例化的。
+
+**有些Filter流的子类:**
+
+- LineNumberInputStream 给目标文件增加行号
+- DataInputStream 有些特殊的方法如`readInt()`, `readDouble()`和`readLine()` 等可以读取一个 int, double和一个string一次性的,
+- BufferedInputStream 增加性能
+- PushbackInputStream 推送要求的字节到系统中
+
+#### 9. SequenceInputStream的作用？
+
+这个类的作用是将多个输入流合并成一个输入流，通过SequenceInputStream类包装后形成新的一个总的输入流。在拷贝多个文件到一个目标文件的时候是非常有用的。可用使用很少的代码实现
+
+#### 10. 说说PrintStream和PrintWriter
+
+他们两个的功能相同，但是属于不同的分类。字节流和字符流。他们都有println()方法。
+
+#### 11. 在文件拷贝的时候，那一种流可用提升更多的性能？
+
+在字节流的时候，使用BufferedInputStream和BufferedOutputStream。
+在字符流的时候，使用BufferedReader和BufferedWriter
+
+#### 12. 说说管道流(Piped Stream)
+
+有四种管道流， PipedInputStream, PipedOutputStream, PipedReader 和 PipedWriter.在多个线程或进程中传递数据的时候管道流非常有用。
+
+#### 13. 说说File类
+
+它不属于 IO流，也不是用于文件操作的，它主要用于知道一个文件的属性，读写权限，大小等信息。注意：Java7中文件IO发生了很大的变化，专门引入了很多新的类来取代原来的基于java.io.File的文件IO操作方式。详情阅读下面的文章：[Java NIO之拥抱Path和Files](http://mp.weixin.qq.com/s?__biz=MzU4NDQ4MzU5OA==&mid=2247483976&idx=1&sn=2296c05fc1b840a64679e2ad7794c96d&chksm=fd985429caefdd3f48e2ee6fdd7b0f6fc419df90b3de46832b484d6d1ca4e74e7837689c8146&scene=21#wechat_redirect)
+
+#### 14. 说说RandomAccessFile？
+
+
+它在java.io包中是一个特殊的类，既不是输入流也不是输出流，它两者都可以做到。他是Object的直接子类。通常来说，一个流只有一个功能，要么读，要么写。但是RandomAccessFile既可以读文件，也可以写文件。 DataInputStream 和 DataOutStream有的方法，在RandomAccessFile中都存在。
 
 ## NIO与AIO学习总结
 
