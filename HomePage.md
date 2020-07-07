@@ -100,7 +100,7 @@
 
 ### Linux相关
 
-* [后端程序员必备的 Linux 基础知识](docs/operating-system/后端程序员必备的Linux基础知识.md)  
+* [后端程序员必备的 Linux 基础知识](docs/operating-system/basis.md)  
 * [Shell 编程入门](docs/operating-system/Shell.md) 
 
 ## 数据结构与算法
