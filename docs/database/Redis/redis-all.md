@@ -151,7 +151,7 @@ OK
 **批量设置** :
 
 ``` bash
-127.0.0.1:6379> mest key1 value1 key2 value2 # 批量设置 key-value 类型的值
+127.0.0.1:6379> mset key1 value1 key2 value2 # 批量设置 key-value 类型的值
 OK
 127.0.0.1:6379> mget key1 key2 # 批量获取多个 key 对应的 value
 1) "value1"
@@ -462,7 +462,7 @@ typedef struct redisDb {
 常用的过期数据的删除策略就两个（重要！自己造缓存轮子的时候需要格外考虑的东西）：
 
 1. **惰性删除** ：只会在取出key的时候才对数据进行过期检查。这样对CPU最友好，但是可能会造成太多过期 key 没有被删除。
-2. **定期删除** ： 每隔一段时间抽取一批 key 执行删除过期key操作。并且，Redis 底层会并通过限制删除操作执行的时长和频率来减少删除操作对CPU时间的影响。
+2. **定期删除** ： 每隔一段时间抽取一批 key 执行删除过期key操作。并且，Redis 底层会通过限制删除操作执行的时长和频率来减少删除操作对CPU时间的影响。
 
 定期删除对内存更加友好，惰性删除对CPU更加友好。两者各有千秋，所以Redis 采用的是 **定期删除+惰性/懒汉式删除** 。
 
@@ -476,7 +476,7 @@ typedef struct redisDb {
 
 Redis 提供 6 种数据淘汰策略：
 
-1. **volatile-lru（least frequently used）**：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
+1. **volatile-lru（least recently used）**：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
 2. **volatile-ttl**：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
 3. **volatile-random**：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
 4. **allkeys-lru（least recently used）**：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的 key（这个是最常用的）
@@ -485,8 +485,8 @@ Redis 提供 6 种数据淘汰策略：
 
 4.0 版本后增加以下两种：
 
-7. **volatile-lfu**：从已设置过期时间的数据集(server.db[i].expires)中挑选最不经常使用的数据淘汰
-8. **allkeys-lfu**：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的 key
+7. **volatile-lfu（least frequently used）**：从已设置过期时间的数据集(server.db[i].expires)中挑选最不经常使用的数据淘汰
+8. **allkeys-lfu（least frequently used）**：当内存不足以容纳新写入数据时，在键空间中，移除最不经常使用的 key
 
 ### 14. Redis 持久化机制(怎么保证 Redis 挂掉之后再重启数据可以进行恢复)
 
